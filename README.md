@@ -50,4 +50,4 @@ options:
 ```
 ## Example:
 sync Spotify liked songs with a public playlist <br>
-`spotifySyncer.py saved_tracks PLAYLIST_ID -id CLIENT_ID -sec CLIENT_SECRET`
+`spotifySyncer.py saved_tracks PLAYLIST_ID -id CLIENT_ID -secret CLIENT_SECRET`
