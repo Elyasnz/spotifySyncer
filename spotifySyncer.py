@@ -1,7 +1,7 @@
 #!/usr/bin/env -S python3 -u
 
 # sudo apt install libcairo2-dev libgirepository1.0-dev
-# pip install argparse spotipy pandas notify-send
+# pip install argparse spotipy pandas
 
 
 from argparse import ArgumentParser
@@ -10,7 +10,6 @@ from os.path import getmtime, exists
 from pathlib import Path
 from time import sleep, time
 
-# from notify import notification as send_notification
 from pandas import DataFrame, DatetimeIndex, concat, to_datetime
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
@@ -70,17 +69,31 @@ class Syncer:
 	@classmethod
 	def via_argsparse(cls):
 		parser = ArgumentParser('Spotify Playlist Syncer')
-		parser.add_argument('playlist_orgn')
-		parser.add_argument('playlist_dst')
-		parser.add_argument('-id', '--client_id', default=environ.get('SPOTIFY_CLIENT_ID'))
-		parser.add_argument('-sec', '--client_secret', default=environ.get('SPOTIFY_CLIENT_SECRET'))
-		parser.add_argument('--save_path', default='/var/log/spotifySyncer')
-		parser.add_argument('--sync_every', type=int, default=0)
+		parser.add_argument(
+			'playlist_orgn',
+			help='origin playlist id (use `saved_tracks` to specify liked songs)'
+		)
+		parser.add_argument(
+			'playlist_dst',
+			help='destination playlist id (use `saved_tracks` to specify liked songs)'
+		)
+		
+		parser.add_argument(
+			'-id', default=environ.get('SPOTIFY_CLIENT_ID'),
+			help='spotify client id (can be specified with ENV:SPOTIFY_CLIENT_ID)')
+		parser.add_argument(
+			'-secret', default=environ.get('SPOTIFY_CLIENT_SECRET'),
+			help='spotify client secret (can be specified with ENV:SPOTIFY_CLIENT_SECRET)')
+		parser.add_argument(
+			'-sp', dest='save_path', default='/var/log/spotifySyncer',
+			help='path to save the playlist spreadsheets')
+		parser.add_argument(
+			'-se', dest='sync_every', type=int, default=0,
+			help='seconds between each sync')
 		
 		args = parser.parse_args()
 		
-		return cls(args.playlist_orgn, args.playlist_dst, args.client_id, args.client_secret, args.save_path,
-		           args.sync_every)
+		return cls(args.playlist_orgn, args.playlist_dst, args.id, args.secret, args.save_path, args.sync_every)
 	
 	@property
 	def sync_available(self):
