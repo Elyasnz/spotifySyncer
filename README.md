@@ -1,7 +1,12 @@
 # spotifySyncer
-Sync Spotify Playlists with each other
-
+Sync Spotify Playlists with each other <br>
 this library is a wrapper for [spotipy](https://github.com/spotipy-dev/spotipy)
+
+## Requirements
+```
+sudo apt install libcairo2-dev libgirepository1.0-dev
+pip install argparse spotipy pandas
+```
 
 ## Create Spotify Developer App
 To start using this code you must first create an app in [spotify developer](https://developer.spotify.com/dashboard/create) <br>
