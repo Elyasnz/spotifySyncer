@@ -42,7 +42,7 @@ class Syncer:
 		self.playlist_dst = playlist_dst
 		self.client_id = client_id or environ.get('SPOTIFY_CLIENT_ID')
 		self.client_secret = client_secret or environ.get('SPOTIFY_CLIENT_SECRET')
-		self.save_path = save_path or '/var/log/spotifySyncer'
+		self.save_path = save_path or f'{Path(__file__).parent.absolute()}/log'
 		self.sync_every = sync_every
 		
 		if not self.client_id:
@@ -67,7 +67,7 @@ class Syncer:
 		)
 	
 	@classmethod
-	def via_argsparse(cls):
+	def via_argparse(cls):
 		parser = ArgumentParser('Spotify Playlist Syncer')
 		parser.add_argument(
 			'playlist_orgn',
@@ -85,7 +85,7 @@ class Syncer:
 			'-secret', default=environ.get('SPOTIFY_CLIENT_SECRET'),
 			help='spotify client secret (can be specified with ENV:SPOTIFY_CLIENT_SECRET)')
 		parser.add_argument(
-			'-sp', dest='save_path', default='/var/log/spotifySyncer',
+			'-sp', dest='save_path', default=None,
 			help='path to save the playlist spreadsheets')
 		parser.add_argument(
 			'-se', dest='sync_every', type=int, default=0,
@@ -214,5 +214,4 @@ class Syncer:
 
 
 if __name__ == '__main__':
-	Syncer.via_argsparse().sync()
-
+	Syncer.via_argparse().sync()
