@@ -1,5 +1,5 @@
 # spotifySyncer
-Sync Spotify Playlists with each other <br>
+Sync Spotify Playlists with each other and keeping the order <br>
 this library is a wrapper for [spotipy](https://github.com/spotipy-dev/spotipy)
 
 ## Requirements
