@@ -73,6 +73,9 @@ class Syncer:
                         "user-library-modify",
                     ]
                 ),
+                proxies=None
+                if proxies is None
+                else {"http": proxies, "https": proxies},
             ),
             proxies=None if proxies is None else {"http": proxies, "https": proxies},
         )
