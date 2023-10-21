@@ -34,7 +34,7 @@ the `XDG_RUNTIME_DIR` variable is used to keep the notifications working
 
 ## Usage
 ```
-usage: Spotify Playlist Syncer [-h] [-id ID] [-secret SECRET] [-sp SAVE_PATH] [-se SYNC_EVERY] playlist_orgn playlist_dst
+usage: Spotify Playlist Syncer [-h] [-id ID] [-secret SECRET] [-sp SAVE_PATH] [-se SYNC_EVERY] [-proxy PROXY] playlist_orgn playlist_dst
 
 positional arguments:
   playlist_orgn   origin playlist id (use `saved_tracks` to specify liked songs)
@@ -46,8 +46,13 @@ options:
   -secret SECRET  spotify client secret (can be specified with ENV:SPOTIFY_CLIENT_SECRET)
   -sp SAVE_PATH   path to save the playlist spreadsheets
   -se SYNC_EVERY  seconds between each sync
+  -proxy PROXY    proxies in http format like http://127.0.0.1:8080
 
 ```
 ## Example:
 sync Spotify liked songs with a public playlist <br>
 `spotifySyncer.py saved_tracks PLAYLIST_ID -id CLIENT_ID -secret CLIENT_SECRET`
+
+## Live:
+this example is currently live on my liked songs playlist available at:
+https://open.spotify.com/playlist/3Te8JlU6wgiTNYACuCr1NF?si=1e565a5bb98145f0
