@@ -254,21 +254,22 @@ class Syncer:
         deleted_saved_tracks = drop_duplicated.loc[drop_duplicated["_from"] == "dst"]
         if not deleted_saved_tracks.empty:
             print("deleted tracks: ", deleted_saved_tracks.name.tolist())
-            for i in range(3):
-                try:
-                    if self.playlist_dst == "saved_tracks":
-                        self.sp.current_user_saved_tracks_delete(
-                            deleted_saved_tracks.id.tolist()
-                        )
-                    else:
-                        self.sp.playlist_remove_all_occurrences_of_items(
-                            self.playlist_dst, deleted_saved_tracks.id.tolist()
-                        )
-                    break
-                except Exception:
-                    sleep(1)
-            else:
-                raise RuntimeError()
+            for track in deleted_saved_tracks.to_dict("records"):
+                print(f'deleting {track["name"]}')
+                for i in range(3):
+                    try:
+                        if self.playlist_dst == "saved_tracks":
+                            self.sp.current_user_saved_tracks_delete([track["id"]])
+                        else:
+                            self.sp.playlist_remove_all_occurrences_of_items(
+                                self.playlist_dst, [track["id"]]
+                            )
+                        break
+                    except Exception:
+                        sleep(1)
+                else:
+                    raise RuntimeError()
+                sleep(1)
 
 
 if __name__ == "__main__":
